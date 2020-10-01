@@ -58,6 +58,25 @@ type DestinationConfig struct {
 	Type        string      `json:"type,omitempty"`
 }
 
+type TrackingPlans struct {
+	TrackingPlans []TrackingPlan `json:"tracking_plans,omitempty"`
+}
+
+type TrackingPlan struct {
+	Name        string    `json:"name,omitempty"`
+	DisplayName string    `json:"display_name,omitempty"`
+	Rules       Rules     `json:"rules,omitempty"`
+	CreateTime  time.Time `json:"create_time,omitempty"`
+	UpdateTime  time.Time `json:"update_time,omitempty"`
+}
+
+type Rules struct {
+	Global   interface{}   `json:"global,omitempty"`
+	Events   []interface{} `json:"events,omitempty"`
+	Identify interface{}   `json:"identify,omitempty"`
+	Group    interface{}   `json:"group,omitempty"`
+}
+
 // UpdateMask contains information for updating Destinations
 type UpdateMask struct {
 	Paths []string `json:"paths,omitempty"`
