@@ -2,27 +2,28 @@ package main
 
 import (
 	"encoding/json"
-	"io/ioutil"
 
 	"fmt"
-	"os"
 
 	"github.com/ajbosco/segment-config-go/segment"
 	// "reflect"
 )
 
 func main() {
-	client := segment.NewClient("access-token", "workspace")
-
-	jsonFile, err := os.Open("segment/trackingplan.json")
-
+	workspace := "workspace"
+	accessToken := "access-token"
+	client, err := segment.NewClient(&accessToken, &workspace)
 	if err != nil {
 		fmt.Println(err)
 	}
 
-	fmt.Println("successfully opened json file")
-	defer jsonFile.Close()
-	byteValue, _ := ioutil.ReadAll(jsonFile)
+	tp, err := client.GetTrackingPlan("rs_123abc")
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(tp)
+
+	// jsonFile, err := os.Open("segment/trackingplan.json")
 
 	var result map[string]interface{}
 	json.Unmarshal([]byte(byteValue), &result)
@@ -31,4 +32,5 @@ func main() {
 
 	fmt.Println(tp)
 
+	// fmt.Println(tp)
 }
