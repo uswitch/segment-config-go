@@ -31,10 +31,30 @@ func NewClient(accessToken, workspace *string) (*Client, error) {
 	c := Client{
 		baseURL:     defaultBaseURL,
 		apiVersion:  apiVersion,
-		accessToken: accessToken,
-		workspace:   workspace,
-		client:      http.DefaultClient,
+		accessToken: *accessToken,
+		workspace:   *workspace,
+		HTTPClient:      http.DefaultClient,
 	}
+
+	// check if accessToken and workspace are valid
+	if (accessToken != nil) && (workspace != nil) {
+		fmt.Println("Entering into conditional")
+		endpoint := "workspaces/uswitch-sandbox"
+		
+		body, err := c.doRequest(http.MethodGet, endpoint, nil)
+		
+		if err != nil {
+			return nil, err
+		}
+
+		wr := Workspace{}
+		
+		err = json.Unmarshal(body, &wr)
+		if err != nil {
+			return nil, err
+		}
+	}
+	return &c, nil
 }
 
 func (c *Client) doRequest(method, endpoint string, data interface{}) ([]byte, error) {
