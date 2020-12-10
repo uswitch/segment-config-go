@@ -61,7 +61,7 @@ func (c *Client) doRequest(method, endpoint string, data interface{}) ([]byte, e
 	req.Header.Set("Content-Type", mediaType)
 
 	// Do the request.
-	resp, err := c.client.Do(req)
+	resp, err := c.HTTPClient.Do(req)
 	if err != nil {
 		return nil, errors.Wrap(err, fmt.Sprintf("performing %s request to %s failed", method, uri))
 	}
