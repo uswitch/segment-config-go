@@ -23,12 +23,12 @@ type Client struct {
 	apiVersion  string
 	accessToken string
 	workspace   string
-	client      *http.Client
+	HTTPClient      *http.Client
 }
 
 // NewClient creates a new Segment Config API client.
-func NewClient(accessToken string, workspace string) *Client {
-	return &Client{
+func NewClient(accessToken, workspace *string) (*Client, error) {
+	c := Client{
 		baseURL:     defaultBaseURL,
 		apiVersion:  apiVersion,
 		accessToken: accessToken,
