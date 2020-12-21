@@ -50,12 +50,15 @@ func (c *Client) GetTrackingPlan(TrackingPlanID string) (TrackingPlan, error) {
 }
 
 // CreateTrackingPlan creates tracking plan
-func (c *Client) CreateTrackingPlan(data interface{}) (TrackingPlan, error) {
+func (c *Client) CreateTrackingPlan(data TrackingPlan) (TrackingPlan, error) {
 	var tp TrackingPlan
+	tpCreateReq := trackingPlanCreateRequest{
+		TrackingPlan: data,
+	}
 	responseBody, err := c.doRequest(http.MethodPost,
 		fmt.Sprintf("%s/%s/%s/",
 			WorkspacesEndpoint, c.workspace, TrackingPlanEndpoint),
-		data)
+			tpCreateReq)
 
 	if err != nil {
 		return tp, err
