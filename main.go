@@ -15,11 +15,16 @@ func main() {
   workspace := "uswitch-sandbox"
   accessToken := "t5dwvaonRp-UqFZJX0iOStP1Cj8_Ea25z8FuxDQWL8U.sHdro1niwYG3oqrnVxSgBUEYNdNPUNVvNiRRUutCHbc"
   client, err := segment.NewClient(&accessToken, &workspace)
-
   if err != nil {
     fmt.Println(err)
   }
-  fmt.Println(client)
+
+  tp, err := client.GetTrackingPlan("rs_1lpOhuvG5JDNEXSK26L6eYF3nv1")
+  if err != nil {
+    fmt.Println(err)
+  }
+  fmt.Println(tp)
+
   
   // jsonFile, err := os.Open("segment/trackingplan.json")
 
