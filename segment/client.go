@@ -38,7 +38,6 @@ func NewClient(accessToken, workspace *string) (*Client, error) {
 
 	// check if accessToken and workspace are valid
 	if (accessToken != nil) && (workspace != nil) {
-		fmt.Println("Entering into conditional")
 		endpoint := "workspaces/uswitch-sandbox"
 		
 		body, err := c.doRequest(http.MethodGet, endpoint, nil)
@@ -98,6 +97,7 @@ func (c *Client) doRequest(method, endpoint string, data interface{}) ([]byte, e
 	case http.StatusNotFound:
 		return nil, fmt.Errorf("the requested uri does not exist")
 	case http.StatusBadRequest:
+		
 		return nil, fmt.Errorf("the request is invalid")
 	default:
 		return nil, fmt.Errorf("bad response code: %d", resp.StatusCode)
