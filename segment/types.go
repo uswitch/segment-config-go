@@ -80,24 +80,28 @@ type TrackingPlans struct {
 	TrackingPlans []TrackingPlan `json:"tracking_plans,omitempty"`
 }
 
+type trackingPlanCreateRequest struct {
+	TrackingPlan TrackingPlan `json:"tracking_plan,omnitempty"`
+}
+
 type TrackingPlan struct {
 	Name        string    `json:"name,omitempty"`
 	DisplayName string    `json:"display_name,omitempty"`
-	Rules       Rules     `json:"rules,omitempty"`
+	Rules       string     `json:"rules,omitempty"`
 	CreateTime  time.Time `json:"create_time,omitempty"`
 	UpdateTime  time.Time `json:"update_time,omitempty"`
 }
 
-type Rules struct {
-	Global   interface{}   `json:"global,omitempty"`
-	Events   [] Events     `json:"events,omitempty"`
-	Identify interface{}   `json:"identify,omitempty"`
-	Group    interface{}   `json:"group,omitempty"`
-}
+// type Rules struct {
+// 	Global   interface{}   `json:"global,omitempty"`
+// 	Events   [] Events     `json:"events,omitempty"`
+// 	Identify interface{}   `json:"identify,omitempty"`
+// 	Group    interface{}   `json:"group,omitempty"`
+// }
 
-type Events struct {
-	EventName string 		`json:"name,omitempty"`
-	Version int				`json:"version,omitempty"`
-	Description string      `json:"description,omitempty"`
-	EventRules  interface{}  `json:"rules,omitempty"`
-}
+// type Events struct {
+// 	EventName string 		`json:"name,omitempty"`
+// 	Version int				`json:"version,omitempty"`
+// 	Description string      `json:"description,omitempty"`
+// 	EventRules  interface{}  `json:"rules,omitempty"`
+// }
