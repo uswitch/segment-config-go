@@ -69,18 +69,20 @@ func (c *Client) CreateTrackingPlan(data TrackingPlan) (TrackingPlan, error) {
 }
 
 // UpdateTrackingPlan updates a tracking plan
-func (c *Client) UpdateTrackingPlan(TrackingPlanID string, data interface{}) (TrackingPlan, error) {
+func (c *Client) UpdateTrackingPlan(TrackingPlanID string, data TrackingPlan) (TrackingPlan, error) {
 	var tp TrackingPlan
-	// "update_mask": {
-	//     "paths": [
-	//         "tracking_plan.display_name",
-	//         "tracking_plan.rules"
-	//     ]
-	// }
+	
+	um := UpdateMask{
+		Paths: []string{"tracking_plan.display_name", "tracking_plan.rules"},
+	}
+	tpUpdateReq := trackingPlanUpdateRequest{
+		UpdateMask: um,
+		TrackingPlan: data,
+	}
 	responseBody, err := c.doRequest(http.MethodPut,
 		fmt.Sprintf("%s/%s/%s/%s/",
 			WorkspacesEndpoint, c.workspace, TrackingPlanEndpoint, TrackingPlanID),
-		data)
+		tpUpdateReq)
 
 	if err != nil {
 		return tp, err

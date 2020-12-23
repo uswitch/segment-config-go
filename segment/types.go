@@ -84,6 +84,11 @@ type trackingPlanCreateRequest struct {
 	TrackingPlan TrackingPlan `json:"tracking_plan,omnitempty"`
 }
 
+type trackingPlanUpdateRequest struct {
+	UpdateMask   UpdateMask   `json:"update_mask,omitempty"`
+	TrackingPlan TrackingPlan `json:"tracking_plans,omitempty"`
+}
+
 type TrackingPlan struct {
 	Name        string    `json:"name,omitempty"`
 	DisplayName string    `json:"display_name,omitempty"`
