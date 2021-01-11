@@ -86,7 +86,7 @@ type trackingPlanCreateRequest struct {
 
 type trackingPlanUpdateRequest struct {
 	UpdateMask   UpdateMask   `json:"update_mask,omitempty"`
-	TrackingPlan TrackingPlan `json:"tracking_plans,omitempty"`
+	TrackingPlan TrackingPlan `json:"tracking_plan,omitempty"`
 }
 
 type TrackingPlan struct {
@@ -99,14 +99,7 @@ type TrackingPlan struct {
 
 // type Rules struct {
 // 	Global   interface{}   `json:"global,omitempty"`
-// 	Events   [] Events     `json:"events,omitempty"`
+// 	Events   interface{}     `json:"events,omitempty"`
 // 	Identify interface{}   `json:"identify,omitempty"`
 // 	Group    interface{}   `json:"group,omitempty"`
-// }
-
-// type Events struct {
-// 	EventName string 		`json:"name,omitempty"`
-// 	Version int				`json:"version,omitempty"`
-// 	Description string      `json:"description,omitempty"`
-// 	EventRules  interface{}  `json:"rules,omitempty"`
 // }
