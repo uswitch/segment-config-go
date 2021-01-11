@@ -27,34 +27,14 @@ type Client struct {
 }
 
 // NewClient creates a new Segment Config API client.
-func NewClient(accessToken, workspace *string) (*Client, error) {
-	c := Client{
+func NewClient(accessToken, workspace string) *Client {
+	return &Client{
 		baseURL:     defaultBaseURL,
 		apiVersion:  apiVersion,
-		accessToken: *accessToken,
-		workspace:   *workspace,
+		accessToken: accessToken,
+		workspace:   workspace,
 		HTTPClient:  http.DefaultClient,
 	}
-
-	// check if accessToken and workspace are valid
-	if (accessToken != nil) && (workspace != nil) {
-		fmt.Println("Entering into conditional")
-		endpoint := "workspaces/workspace"
-
-		body, err := c.doRequest(http.MethodGet, endpoint, nil)
-
-		if err != nil {
-			return nil, err
-		}
-
-		wr := Workspace{}
-
-		err = json.Unmarshal(body, &wr)
-		if err != nil {
-			return nil, err
-		}
-	}
-	return &c, nil
 }
 
 func (c *Client) doRequest(method, endpoint string, data interface{}) ([]byte, error) {
@@ -98,7 +78,6 @@ func (c *Client) doRequest(method, endpoint string, data interface{}) ([]byte, e
 	case http.StatusNotFound:
 		return nil, fmt.Errorf("the requested uri does not exist")
 	case http.StatusBadRequest:
-
 		return nil, fmt.Errorf("the request is invalid")
 	default:
 		return nil, fmt.Errorf("bad response code: %d", resp.StatusCode)

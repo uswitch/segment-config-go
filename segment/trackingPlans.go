@@ -40,7 +40,6 @@ func (c *Client) GetTrackingPlan(TrackingPlanID string) (TrackingPlan, error) {
 		return tp, err
 	}
 	err = json.Unmarshal(data, &tp)
-	fmt.Println(string(data))
 	// fmt.Printf("%+v", tp)
 	if err != nil {
 		return tp, errors.Wrap(err, "failed to unmarshal tracking plans response")
