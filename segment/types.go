@@ -76,8 +76,26 @@ type destinationUpdateRequest struct {
 	UpdateMask  UpdateMask  `json:"update_mask,omitempty"`
 }
 
+// TrackingPlans is a list of tracking plans
 type TrackingPlans struct {
 	TrackingPlans []TrackingPlan `json:"tracking_plans,omitempty"`
+}
+
+// TrackingPlan contains information about a tracking plan
+type TrackingPlan struct {
+	Name        string    `json:"name,omitempty"`
+	DisplayName string    `json:"display_name,omitempty"`
+	Rules       Rules     `json:"rules,omitempty"`
+	CreateTime  time.Time `json:"create_time,omitempty"`
+	UpdateTime  time.Time `json:"update_time,omitempty"`
+}
+
+// Rules contains information about the tracking plan rules
+type Rules struct {
+	Global   map[string]interface{}   `json:"global,omitempty"`
+	Events   []map[string]interface{} `json:"events,omitempty"` // TODO: define it more specifically
+	Identify map[string]interface{}   `json:"identify,omitempty"`
+	Group    map[string]interface{}   `json:"group,omitempty"`
 }
 
 type trackingPlanCreateRequest struct {
@@ -88,18 +106,3 @@ type trackingPlanUpdateRequest struct {
 	UpdateMask   UpdateMask   `json:"update_mask,omitempty"`
 	TrackingPlan TrackingPlan `json:"tracking_plan,omitempty"`
 }
-
-type TrackingPlan struct {
-	Name        string    `json:"name,omitempty"`
-	DisplayName string    `json:"display_name,omitempty"`
-	Rules       string     `json:"rules,omitempty"`
-	CreateTime  time.Time `json:"create_time,omitempty"`
-	UpdateTime  time.Time `json:"update_time,omitempty"`
-}
-
-// type Rules struct {
-// 	Global   interface{}   `json:"global,omitempty"`
-// 	Events   interface{}     `json:"events,omitempty"`
-// 	Identify interface{}   `json:"identify,omitempty"`
-// 	Group    interface{}   `json:"group,omitempty"`
-// }
