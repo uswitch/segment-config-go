@@ -5,6 +5,9 @@
 *.so
 *.dylib
 
+# Vendor dependencies
+vendor/*
+
 # Test binary, build with `go test -c`
 *.test
 
