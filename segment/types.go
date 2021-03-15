@@ -99,7 +99,7 @@ type Rules struct {
 }
 
 type trackingPlanCreateRequest struct {
-	TrackingPlan TrackingPlan `json:"tracking_plan,omnitempty"`
+	TrackingPlan TrackingPlan `json:"tracking_plan,omitempty"`
 }
 
 type trackingPlanUpdateRequest struct {
