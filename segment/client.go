@@ -23,17 +23,17 @@ type Client struct {
 	apiVersion  string
 	accessToken string
 	workspace   string
-	client      *http.Client
+	HTTPClient  *http.Client
 }
 
 // NewClient creates a new Segment Config API client.
-func NewClient(accessToken string, workspace string) *Client {
+func NewClient(accessToken, workspace string) *Client {
 	return &Client{
 		baseURL:     defaultBaseURL,
 		apiVersion:  apiVersion,
 		accessToken: accessToken,
 		workspace:   workspace,
-		client:      http.DefaultClient,
+		HTTPClient:  http.DefaultClient,
 	}
 }
 
@@ -61,7 +61,7 @@ func (c *Client) doRequest(method, endpoint string, data interface{}) ([]byte, e
 	req.Header.Set("Content-Type", mediaType)
 
 	// Do the request.
-	resp, err := c.client.Do(req)
+	resp, err := c.HTTPClient.Do(req)
 	if err != nil {
 		return nil, errors.Wrap(err, fmt.Sprintf("performing %s request to %s failed", method, uri))
 	}
