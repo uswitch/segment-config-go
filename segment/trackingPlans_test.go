@@ -72,10 +72,7 @@ const (
 					  }
 					},
 					"context": {}
-				  },
-				  "required": [
-					"properties"
-				  ]
+				  }
 				},
 				"version": 1
 			  }
@@ -120,15 +117,15 @@ func TestTrackingPlans_ListTrackingPlans(t *testing.T) {
 			{
 				Name:        "workspaces/test/tracking-plans/rs_123abc",
 				DisplayName: "Test Tracking Plan 1",
-				Rules: Rules{
-					Events: []map[string]interface{}{},
+				Rules: RuleSet{
+					Events: []Event{},
 				},
 			},
 			{
 				Name:        "workspaces/test/tracking-plans/rs_456def",
 				DisplayName: "Test Tracking Plan 2",
-				Rules: Rules{
-					Events: []map[string]interface{}{},
+				Rules: RuleSet{
+					Events: []Event{},
 				},
 			},
 		},
@@ -150,58 +147,58 @@ func TestTrackingPlans_GetTrackingPlan(t *testing.T) {
 	actual, err := client.GetTrackingPlan(testTrackingPlanID)
 	assert.NoError(t, err)
 
+	version := 1
 	expected := TrackingPlan{
 		Name:        "workspaces/test/tracking-plans/rs_123abc",
 		DisplayName: "Test Tracking Plan",
-		Rules: Rules{
-			Global: map[string]interface{}{
-				"$schema": "http://json-schema.org/draft-04/schema#",
-				"type":    "object",
-				"properties": map[string]interface{}{
-					"context": map[string]interface{}{
-						"type": "object",
-						"properties": map[string]interface{}{
-							"context_prop_1": map[string]interface{}{
-								"type": []interface{}{"object"},
+		Rules: RuleSet{
+			Global: Rules{
+				Schema: "http://json-schema.org/draft-04/schema#",
+				Type:   "object",
+				Properties: RuleProperties{
+					Context: Properties{
+						Type: "object",
+						Properties: map[string]Property{
+							"context_prop_1": {
+								Type: []string{"object"},
 							},
 						},
-						"required": []interface{}{"context_prop_1"},
+						Required: []string{"context_prop_1"},
 					},
-					"properties": map[string]interface{}{},
-					"traits":     map[string]interface{}{},
+					Properties: Properties{},
+					Traits:     Properties{},
 				},
 			},
-			Events: []map[string]interface{}{
+			Events: []Event{
 				{
-					"name":        "Test Event Clicked",
-					"description": "A simple test event",
-					"rules": map[string]interface{}{
-						"$schema": "http://json-schema.org/draft-07/schema#",
-						"type":    "object",
-						"properties": map[string]interface{}{
-							"traits": map[string]interface{}{},
-							"properties": map[string]interface{}{
-								"required": []interface{}{"user_id", "email"},
-								"type":     "object",
-								"properties": map[string]interface{}{
-									"user_id": map[string]interface{}{
-										"description": "unique id of the user",
-										"type":        []interface{}{"string"},
+					Name:        "Test Event Clicked",
+					Description: "A simple test event",
+					Rules: Rules{
+						Schema: "http://json-schema.org/draft-07/schema#",
+						Type:   "object",
+						Properties: RuleProperties{
+							Traits: Properties{},
+							Properties: Properties{
+								Required: []string{"user_id", "email"},
+								Type:     "object",
+								Properties: map[string]Property{
+									"user_id": {
+										Description: "unique id of the user",
+										Type:        []string{"string"},
 									},
-									"email": map[string]interface{}{
-										"description": "user email",
-										"type":        []interface{}{"string"},
+									"email": {
+										Description: "user email",
+										Type:        []string{"string"},
 									},
-									"test_prop": map[string]interface{}{
-										"description": "test prop",
-										"type":        []interface{}{"integer"},
+									"test_prop": {
+										Description: "test prop",
+										Type:        []string{"integer"},
 									},
 								},
-								"context": map[string]interface{}{},
 							},
-							"required": []interface{}{"properties"},
+							Context: Properties{},
 						},
-						"version": float64(1),
+						Version: &version,
 					},
 				},
 			},
@@ -220,57 +217,56 @@ func TestTrackingPlans_CreateTrackingPlan(t *testing.T) {
 		fmt.Fprint(w, testTrackingPlanResponse)
 	})
 
+	version := 1
 	expected := TrackingPlan{
 		DisplayName: "Test Tracking Plan",
-		Rules: Rules{
-			Global: map[string]interface{}{
-				"$schema": "http://json-schema.org/draft-04/schema#",
-				"type":    "object",
-				"properties": map[string]interface{}{
-					"context": map[string]interface{}{
-						"type": "object",
-						"properties": map[string]interface{}{
-							"context_prop_1": map[string]interface{}{
-								"type": []interface{}{"object"},
+		Rules: RuleSet{
+			Global: Rules{
+				Schema: "http://json-schema.org/draft-04/schema#",
+				Type:   "object",
+				Properties: RuleProperties{
+					Context: Properties{
+						Type: "object",
+						Properties: map[string]Property{
+							"context_prop_1": {
+								Type: []string{"object"},
 							},
 						},
-						"required": []interface{}{"context_prop_1"},
+						Required: []string{"context_prop_1"},
 					},
-					"properties": map[string]interface{}{},
-					"traits":     map[string]interface{}{},
+					Properties: Properties{},
+					Traits:     Properties{},
 				},
 			},
-			Events: []map[string]interface{}{
+			Events: []Event{
 				{
-					"name":        "Test Event Clicked",
-					"description": "A simple test event",
-					"rules": map[string]interface{}{
-						"$schema": "http://json-schema.org/draft-07/schema#",
-						"type":    "object",
-						"properties": map[string]interface{}{
-							"traits": map[string]interface{}{},
-							"properties": map[string]interface{}{
-								"required": []interface{}{"user_id", "email"},
-								"type":     "object",
-								"properties": map[string]interface{}{
-									"user_id": map[string]interface{}{
-										"description": "unique id of the user",
-										"type":        []interface{}{"string"},
+					Name:        "Test Event Clicked",
+					Description: "A simple test event",
+					Rules: Rules{
+						Schema: "http://json-schema.org/draft-07/schema#",
+						Type:   "object",
+						Properties: RuleProperties{
+							Traits: Properties{},
+							Properties: Properties{
+								Required: []string{"user_id", "email"},
+								Type:     "object",
+								Properties: map[string]Property{
+									"user_id": {
+										Description: "unique id of the user",
+										Type:        []string{"string"},
 									},
-									"email": map[string]interface{}{
-										"description": "user email",
-										"type":        []interface{}{"string"},
+									"email": {
+										Description: "user email",
+										Type:        []string{"string"},
 									},
-									"test_prop": map[string]interface{}{
-										"description": "test prop",
-										"type":        []interface{}{"integer"},
+									"test_prop": {
+										Description: "test prop",
+										Type:        []string{"integer"},
 									},
 								},
-								"context": map[string]interface{}{},
 							},
-							"required": []interface{}{"properties"},
 						},
-						"version": float64(1),
+						Version: &version,
 					},
 				},
 			},
@@ -294,57 +290,56 @@ func TestTrackingPlans_UpdateTrackingPlan(t *testing.T) {
 		fmt.Fprint(w, testTrackingPlanResponse)
 	})
 
+	version := 1
 	expected := TrackingPlan{
 		DisplayName: "Test Tracking Plan",
-		Rules: Rules{
-			Global: map[string]interface{}{
-				"$schema": "http://json-schema.org/draft-04/schema#",
-				"type":    "object",
-				"properties": map[string]interface{}{
-					"context": map[string]interface{}{
-						"type": "object",
-						"properties": map[string]interface{}{
-							"context_prop_1": map[string]interface{}{
-								"type": []interface{}{"object"},
+		Rules: RuleSet{
+			Global: Rules{
+				Schema: "http://json-schema.org/draft-04/schema#",
+				Type:   "object",
+				Properties: RuleProperties{
+					Context: Properties{
+						Type: "object",
+						Properties: map[string]Property{
+							"context_prop_1": {
+								Type: []string{"object"},
 							},
 						},
-						"required": []interface{}{"context_prop_1"},
+						Required: []string{"context_prop_1"},
 					},
-					"properties": map[string]interface{}{},
-					"traits":     map[string]interface{}{},
+					Properties: Properties{},
+					Traits:     Properties{},
 				},
 			},
-			Events: []map[string]interface{}{
+			Events: []Event{
 				{
-					"name":        "Test Event Clicked",
-					"description": "A simple test event",
-					"rules": map[string]interface{}{
-						"$schema": "http://json-schema.org/draft-07/schema#",
-						"type":    "object",
-						"properties": map[string]interface{}{
-							"traits": map[string]interface{}{},
-							"properties": map[string]interface{}{
-								"required": []interface{}{"user_id", "email"},
-								"type":     "object",
-								"properties": map[string]interface{}{
-									"user_id": map[string]interface{}{
-										"description": "unique id of the user",
-										"type":        []interface{}{"string"},
+					Name:        "Test Event Clicked",
+					Description: "A simple test event",
+					Rules: Rules{
+						Schema: "http://json-schema.org/draft-07/schema#",
+						Type:   "object",
+						Properties: RuleProperties{
+							Traits: Properties{},
+							Properties: Properties{
+								Required: []string{"user_id", "email"},
+								Type:     "object",
+								Properties: map[string]Property{
+									"user_id": {
+										Description: "unique id of the user",
+										Type:        []string{"string"},
 									},
-									"email": map[string]interface{}{
-										"description": "user email",
-										"type":        []interface{}{"string"},
+									"email": {
+										Description: "user email",
+										Type:        []string{"string"},
 									},
-									"test_prop": map[string]interface{}{
-										"description": "test prop",
-										"type":        []interface{}{"integer"},
+									"test_prop": {
+										Description: "test prop",
+										Type:        []string{"integer"},
 									},
 								},
-								"context": map[string]interface{}{},
 							},
-							"required": []interface{}{"properties"},
 						},
-						"version": float64(1),
+						Version: &version,
 					},
 				},
 			},
