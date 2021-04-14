@@ -35,12 +35,12 @@ const (
 	Allow CommonEventSettings = "ALLOW"
 
 	// Only for use with CommonTrackEventOnViolations
-	OmitProps = "OMIT_PROPERTIES"
+	OmitProps CommonEventSettings = "OMIT_PROPERTIES"
 
 	// Only for use with CommonIdentifyEventOnViolations and CommonIdentifyEventOnViolations
-	OmitTraits = "OMIT_TRAITS"
+	OmitTraits CommonEventSettings = "OMIT_TRAITS"
 
-	Block = "BLOCK"
+	Block CommonEventSettings = "BLOCK"
 )
 
 type SourceConfig struct {
